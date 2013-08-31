@@ -40,7 +40,7 @@ int main(void) {
 */
 	printf("%d \n", arbol.nelem);
 	archivo_comprimido = comprimir("hola.txt");
-	descompresor("archbin.dat");
+//	descompresor("archbin.dat");
 	
 	printf("%d \n",'ÿ');
 	printf("%d \n",'A');

@@ -1,11 +1,12 @@
 CC = gcc
-OBJECTS = trie.o 
+CFLAGS = -lm
+OBJECTS = trie.o main-test.o compresor.o 
 
-main-test : main-test.o $(OBJECTS)
-	$(CC) -o main-test main-test.o $(OBJECTS)
+main : $(OBJECTS)
+	$(CC) -o main $(OBJECTS) $(CFLAGS)
 
-main-test.o: trie.h
-trie.o: trie.h
+main-test.o: main-test.c trie.c compresor.c trie.h
+trie.o: trie.c trie.h
 
 clean :
-	rm main-test *.o
+	rm main *.o

@@ -183,7 +183,7 @@ FILE *comprimir(char *nombre) {
 }
 
 #define ESTADO_INICIAL		3	
-
+/*
 raiz *inicializar_dic(void) {
 	raiz nuevo_diccionario = malloc(sizeof(raiz));
 	nuevo_diccionario.nelems = 0;
@@ -242,3 +242,4 @@ void descompresor(char *archivo_entrada) {
 	
 
 }
+*/
