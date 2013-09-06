@@ -142,7 +142,7 @@ FILE *comprimir(char *nombre) {
 	char cadena[1000];
 	char cadena_temp[1000];
 	char *primer_elem;
-	FILE *salida = fopen("archbin.dat", "wb");
+	FILE *salida = fopen("FACIL", "wb");
 	FILE *fuente = fopen(nombre, "rb");
 
 	cadena[0] = '\0';
@@ -183,63 +183,37 @@ FILE *comprimir(char *nombre) {
 }
 
 #define ESTADO_INICIAL		3	
-/*
-raiz *inicializar_dic(void) {
-	raiz nuevo_diccionario = malloc(sizeof(raiz));
-	nuevo_diccionario.nelems = 0;
-	int i;
-	diccionario nodo;
-	nodo.pos = 0;
-	
-	for(i = 0; i < ESTADO_INICIAL; i++) {
-		nuevo_diccionario.arr_global[i] = malloc(sizeof(diccionario));
-		nuevo_diccionario.arr_global[i] = nodo;
-	}
-
-	for(i = 0; i < 100; i++) {
-		nuevo_diccionario.arr_global[0].palabra[i] = i;
-	}
-	for(i = 100; i < 200; i++) {
-		nuevo_diccionario.arr_global[1].palabra[i] = i;
-	}
-	for(i = 200; i < 256; i++) {
-		nuevo_diccionario.arr_global[2].palabra[i] = i;
-	}
-	return nuevo_diccionario;
-}
 
 #define traduccion_codigo(codigo)	dic->arr_global[codigo/100].palabra[codigo%100]
 
-void descompresor(char *archivo_entrada) {
+/*void descompresor(char *archivo_entrada) {
 
 	int estado;
-	raiz *dic = inicializar_dic();
+	diccionario *dic = inicializar_diccionario();
 
 	FILE *entrada = fopen(archivo_entrada,"rb");
 	FILE *salida = fopen("descomprimido","wb");
 
 	char *cadena;	
 	char caracter[1];
-	uint8_t *codigo_antiguo;
-	uint8_t *aux;
+	uint16_t *codigo_antiguo;
+	uint16_t *aux;
 	char *nuevo_codigo;
 
-	estado = fread(codigo_antiguo,sizeof(uint8_t),1,entrada);
+	estado = fread(codigo_antiguo,sizeof(uint16_t),1,entrada);
 	if (estado) 
-		estado = fwrite(codigo_antiguo,sizeof(uint8_t),1,salida);
+		estado = fwrite(codigo_antiguo,sizeof(uint16_t),1,salida);
 	else
 		printf("ERROR - ARCHIVO VACIO\n");
 
-	while(fread(nuevo_codigo,sizeof(uint8_t), 1, salida)) {
+	while(fread(nuevo_codigo,sizeof(uint16_t), 1, salida)) {
 		cadena = traduccion_codigo(*nuevo_codigo);
-		fwrite(cadena, sizeof(uint8_t), 1, salida);
+		fwrite(cadena, sizeof(uint16_t), 1, salida);
 		*caracter = cadena[0];
-		aux = malloc(sizeof(uint8_t)+strlen(cadena)+strlen(caracter)-1);
+		aux = malloc(sizeof(uint16_t)+strlen(cadena)+strlen(caracter)-1);
 		aux = strcat(aux, codigo_antiguo);
-		aux	= strcat(aux, nuevo_codigo);
+		aux = strcat(aux, nuevo_codigo);
 		codigo_antiguo = nuevo_codigo;
 	}
-	
-
 }
 */

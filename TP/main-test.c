@@ -13,7 +13,7 @@ int main(void) {
 	
 //	FILE *fichero = fopen("hola.txt","r");
 	FILE *archivo_comprimido;	
-	inicializar_diccionario();
+/*	inicializar_diccionario();
 	for(i = 0; i < MAX_CHAR; i++)  
 		printf("caracter %c - posicion %d  \n ",arbol.arr_letras[i]->letra,
 								 esta_en_diccionario(&(arbol.arr_letras[i]->letra)));
@@ -33,17 +33,21 @@ int main(void) {
 	
 	puts("");
 	
-	/*int *arr = binario(256,9);
+	int *arr = binario(256,9);
 	for(i = 0; i < 9; i++)  
 		printf("%d",arr[i]);
 	puts("");
 */
-	printf("%d \n", arbol.nelem);
-	archivo_comprimido = comprimir("hola.txt");
-//	descompresor("archbin.dat");
+//	1P
+//	1S
+//	1R
+//	printf("%d \n", arbol.nelem);
+	archivo_comprimido = compresor("hola.txt");
+	printf("pruuuuuuuuummmmmm \n");
+	//descompresor("FACIL");
 	
-	printf("%d \n",'ÿ');
-	printf("%d \n",'A');
+//	printf("%d \n",'ÿ');
+//	printf("%d \n",'A');
 /*	printf("Esta %c en el diccionario? %d \n",'h',esta_en_diccionario("h"));
 	printf("Esta %c en el diccionario? %d \n",'o',esta_en_diccionario("o"));
 	printf("Esta %c en el diccionario? %d \n",'l',esta_en_diccionario("l"));

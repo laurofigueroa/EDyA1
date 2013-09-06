@@ -2,6 +2,7 @@
 #define __TRIE_H__
 
 #define MAX_CHAR	256
+#define SIZE	320
 
 typedef struct TrieNode_ {
 	unsigned char letra;
@@ -15,14 +16,10 @@ typedef struct TrieRaiz_ {
 } TrieRaiz;
 
 typedef struct _agre {
-	unsigned char *palabra[100];
+	char **arr[SIZE];
 	int posicion;
 } diccionario;
 	
-typedef struct raiz_ {
-	diccionario *arr_global;
-	int nelems;
-} raiz; 
 
 TrieRaiz arbol;
 
@@ -33,6 +30,6 @@ void inicializar_diccionario(void);
 int esta_en_diccionario(unsigned char *palabra);
 void agregar_al_diccionario(unsigned char *palabra);
 unsigned char *binario(int numero, int tamanio);
-FILE *comprimir(char *nombre);
+//FILE *comprimir(char *nombre);
 
 #endif
