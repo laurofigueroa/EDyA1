@@ -57,13 +57,15 @@ diccionario *inicializar_diccionarioarr(void) {
 	}
 
 	for(i = 0; i < 100; i++) {
-		nuevo_dic->arr[0][i] = malloc(sizeof(char));
+		nuevo_dic->arr[0][i] = malloc(sizeof(char)*2);
 	
-		*((char *)nuevo_dic->arr[0][i]) = i;
+		*(nuevo_dic->arr[0][i]) = i;
+		nuevo_dic->arr[0][i][1] = '\0';
 
-		nuevo_dic->arr[1][i] = malloc(sizeof(char)); 
+		nuevo_dic->arr[1][i] = malloc(sizeof(char)*2); 
 
-		*((char *)nuevo_dic->arr[1][i]) = (i+100);
+		*(nuevo_dic->arr[1][i]) = (i+100);
+		nuevo_dic->arr[1][i][1] = '\0';
 	}
 	for(i = 0; i < 56; i++) {
 		nuevo_dic->arr[2][i] = malloc(sizeof(char)); *((char *)nuevo_dic->arr[2][i]) = (i+200);
