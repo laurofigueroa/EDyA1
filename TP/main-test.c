@@ -42,9 +42,9 @@ int main(void) {
 //	1S
 //	1R
 //	printf("%d \n", arbol.nelem);
-	archivo_comprimido = compresor("hola.txt");
-	printf("pruuuuuuuuummmmmm \n");
-	//descompresor("FACIL");
+	compresor("hola.txt");
+//	printf("pruuuuuuuuummmmmm \n");
+	descompresor("FACIL");
 	
 //	printf("%d \n",'ÿ');
 //	printf("%d \n",'A');
