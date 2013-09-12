@@ -27,13 +27,15 @@ void agregar_palabra(char *cadena_leida, char *caracter, diccionario *dic) {
 
 	dic->arr[pos/100][pos%100] = nueva_palabra;
 
+//	printf("CADENA ESCRITA CORRECTAMENTE....................... (%s) \n",nueva_palabra);
+
 }
 
 void descompresor(char *nombre) {
 	printf("------------> DESCOMPRESOR <-------------------- \n");
 	diccionario *dic = inicializar_diccionarioarr();
 
-	imprimir_diccionario(dic);
+//	imprimir_diccionario(dic);
 
 
 
@@ -47,26 +49,36 @@ void descompresor(char *nombre) {
 	uint16_t codigo_antiguo, nuevo_codigo;
 	char *cadena;
 	int traduccion;
+	char *temp;
 	
 	FILE *archivo_entrada = fopen(nombre, "rb");
 	FILE *archivo_salida = fopen("descomprimido", "w");
 
 	codigo_antiguo = leer_binario(archivo_entrada, dic->posicion+1, &memoria, &ocupado);
-	printf("codigo antiguo = %d\n", codigo_antiguo);
+//	printf("codigo antiguo = %d\n", codigo_antiguo);
 	cadena_leida = traduccion_codigo(codigo_antiguo);
 	fputc(*cadena_leida,archivo_salida);
-	printf("CADENA LEIDA = %s\n",cadena_leida);
+//	printf("CADENA LEIDA = %s\n",cadena_leida);
 
 //	fwrite(cadena_leida, sizeof(char),strlen(cadena_leida),archivo_salida);
 
 
 	while(!feof(archivo_entrada)) {
 		nuevo_codigo = leer_binario(archivo_entrada, dic->posicion+1, &memoria, &ocupado);
+//		printf("      CODIGO LEIDO: %d\n", nuevo_codigo);
 		cadena = traduccion_codigo(nuevo_codigo);
-		printf("cadena hacia archivo salida %s \n", cadena);
+//		printf("  CADENA TRADUCIDA %s de CODIGO LEIDO: %d\n",cadena, nuevo_codigo);
+		if(cadena == NULL) {
+			temp = cadena_leida; 
+			cadena = malloc(sizeof(char)*(strlen(cadena_leida)+3));
+			strcpy(cadena, temp);
+			strcat(cadena, caracter);
+		}
+	
+//		printf("cadena hacia archivo salida %s \n", cadena);
 		fwrite(cadena, sizeof(char),strlen(cadena), archivo_salida);
 		*caracter = *cadena;
-		printf("caracter %s + %s \n",cadena_leida,caracter);
+//		printf("caracter %s + %s \n",cadena_leida,caracter);
 		agregar_palabra(cadena_leida, caracter, dic);
 		//printf("concatenado = %s \n", cadena);
 		cadena_leida = cadena;		

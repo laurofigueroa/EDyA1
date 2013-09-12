@@ -37,7 +37,7 @@ void ultimo_elemento(char *arr) {
 		arr[i-1] = '\0';
 }
 
-
+/*
 void agregar_binario(char *arr, int bits, FILE *salida) {
 	int pos,x,i;
 	unsigned char *bin;
@@ -66,7 +66,7 @@ void agregar_binario(char *arr, int bits, FILE *salida) {
 	byte[0] = 0;
 	}	
 }
-
+*/
 void primer_elemento(char *arr, char c) {
 	int i;
 	arr[0] = c;
@@ -103,6 +103,8 @@ void compresor(char *archivo) {
 	char chau[4] = "chau";
 	printf("%s \n",strcat(hola,chau));
 
+	inicializar_diccionario();
+
 	while(((c = getc(archivo_fuente)) != EOF)) {
 		//printf("Caracter c = %d \n",c);
 		caracter[0] = c;
@@ -123,7 +125,7 @@ void compresor(char *archivo) {
 		}
 		if(esta_en_diccionario(cadena) == -1) {
                         //printf("Dentro del if \n");
-			agregar_binario(cadena_original, bits,archivo_binario);
+			agregar_binario(cadena_original, arbol.nelem, archivo_binario);
                        // putc('\n',archivo_binario);
 			agregar_al_diccionario(cadena);
                         cadena[0] = c;
@@ -136,14 +138,16 @@ void compresor(char *archivo) {
 
 FILE *comprimir(char *nombre) {
 	int bits = 8;
-	int i,x;
+	int i,x, pos;
 	unsigned int c = 3;
 	int *bin;
 	char cadena[1000];
 	char cadena_temp[1000];
 	char *primer_elem;
-	FILE *salida = fopen("FACIL", "wb");
+	FILE *salida = fopen("archbin.lzw", "wb");
 	FILE *fuente = fopen(nombre, "rb");
+
+	inicializar_diccionario();
 
 	cadena[0] = '\0';
 	for(i = 0; (c = fgetc(fuente)) != EOF; i++) {
@@ -156,13 +160,13 @@ FILE *comprimir(char *nombre) {
 			agregar_binario(cadena, bits,salida);
 		}*/
 		printf("bits %d - nelems %d \n",bits, arbol.nelem);
-		if(esta_en_diccionario(cadena) == -1) {
+		if(-1 == (pos = esta_en_diccionario(cadena))) {
 			//printf("Agregar cadena %s al diccionario\n",cadena);	
 			agregar_al_diccionario(cadena);
 			//printf("Esta %s pos dic %d \n",cadena,esta_en_diccionario(cadena));
 			ultimo_elemento(cadena);
 			//printf("Agregar cadena (%s) al binario \n",cadena);	
-			agregar_binario(cadena, bits, salida);
+			agregar_binario(pos, arbol.nelem, salida);
 			//putc('\n',salida);
 			primer_elemento(cadena, c);
 		}
@@ -183,37 +187,63 @@ FILE *comprimir(char *nombre) {
 }
 
 #define ESTADO_INICIAL		3	
+/*
+raiz *inicializar_dic(void) {
+	raiz nuevo_diccionario = malloc(sizeof(raiz));
+	nuevo_diccionario.nelems = 0;
+	int i;
+	diccionario nodo;
+	nodo.pos = 0;
+	
+	for(i = 0; i < ESTADO_INICIAL; i++) {
+		nuevo_diccionario.arr_global[i] = malloc(sizeof(diccionario));
+		nuevo_diccionario.arr_global[i] = nodo;
+	}
+
+	for(i = 0; i < 100; i++) {
+		nuevo_diccionario.arr_global[0].palabra[i] = i;
+	}
+	for(i = 100; i < 200; i++) {
+		nuevo_diccionario.arr_global[1].palabra[i] = i;
+	}
+	for(i = 200; i < 256; i++) {
+		nuevo_diccionario.arr_global[2].palabra[i] = i;
+	}
+	return nuevo_diccionario;
+}
 
 #define traduccion_codigo(codigo)	dic->arr_global[codigo/100].palabra[codigo%100]
 
-/*void descompresor(char *archivo_entrada) {
+void descompresor(char *archivo_entrada) {
 
 	int estado;
-	diccionario *dic = inicializar_diccionario();
+	raiz *dic = inicializar_dic();
 
 	FILE *entrada = fopen(archivo_entrada,"rb");
 	FILE *salida = fopen("descomprimido","wb");
 
 	char *cadena;	
 	char caracter[1];
-	uint16_t *codigo_antiguo;
-	uint16_t *aux;
+	uint8_t *codigo_antiguo;
+	uint8_t *aux;
 	char *nuevo_codigo;
 
-	estado = fread(codigo_antiguo,sizeof(uint16_t),1,entrada);
+	estado = fread(codigo_antiguo,sizeof(uint8_t),1,entrada);
 	if (estado) 
-		estado = fwrite(codigo_antiguo,sizeof(uint16_t),1,salida);
+		estado = fwrite(codigo_antiguo,sizeof(uint8_t),1,salida);
 	else
 		printf("ERROR - ARCHIVO VACIO\n");
 
-	while(fread(nuevo_codigo,sizeof(uint16_t), 1, salida)) {
+	while(fread(nuevo_codigo,sizeof(uint8_t), 1, salida)) {
 		cadena = traduccion_codigo(*nuevo_codigo);
-		fwrite(cadena, sizeof(uint16_t), 1, salida);
+		fwrite(cadena, sizeof(uint8_t), 1, salida);
 		*caracter = cadena[0];
-		aux = malloc(sizeof(uint16_t)+strlen(cadena)+strlen(caracter)-1);
+		aux = malloc(sizeof(uint8_t)+strlen(cadena)+strlen(caracter)-1);
 		aux = strcat(aux, codigo_antiguo);
-		aux = strcat(aux, nuevo_codigo);
+		aux	= strcat(aux, nuevo_codigo);
 		codigo_antiguo = nuevo_codigo;
 	}
+	
+
 }
 */

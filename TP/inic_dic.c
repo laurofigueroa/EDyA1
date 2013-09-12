@@ -49,7 +49,7 @@ int main(void) {
 
 diccionario *inicializar_diccionarioarr(void) {
 	diccionario *nuevo_dic = malloc(sizeof(diccionario));
-	int i;
+	int i,j;
 
 	for(i = 0; i < SIZE; i++) {
 		nuevo_dic->arr[i] = malloc(sizeof(char*)*100);
@@ -68,10 +68,25 @@ diccionario *inicializar_diccionarioarr(void) {
 		nuevo_dic->arr[1][i][1] = '\0';
 	}
 	for(i = 0; i < 56; i++) {
-		nuevo_dic->arr[2][i] = malloc(sizeof(char)); *((char *)nuevo_dic->arr[2][i]) = (i+200);
+		nuevo_dic->arr[2][i] = malloc(sizeof(char)*2); 
+
+		*((char *)nuevo_dic->arr[2][i]) = (i+200);
+		nuevo_dic->arr[2][i][1] = '\0';
 	}
 	
 	nuevo_dic->posicion = 255; 
+
+	for(i = 56; i < 100; i++) {
+		nuevo_dic->arr[2][i] = NULL;
+	}
+
+	for(i = 3; i < SIZE; i++) {
+		for(j = 0; j < 100; j++) {
+			nuevo_dic->arr[i][j] = NULL;
+		}
+	}
+
+
 
 	return nuevo_dic;
 }
@@ -82,8 +97,6 @@ void imprimir_diccionario(diccionario *dic) {
 	for(i = 0; i < 100; i++) {
 		printf("pos: %d cadena: %s \n", i, (char*)dic->arr[0][i]);
 		printf("pos: %d cadena: %s \n", i+100, (char*)dic->arr[1][i]);
-	}
-	for(i = 0; i < 56; i++) {
 		printf("pos: %d cadena: %s \n",i+200, (char*)dic->arr[2][i]);
 	}
 

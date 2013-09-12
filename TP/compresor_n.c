@@ -22,7 +22,7 @@ void compresor(char *nombre) {
 
 	inicializar_diccionario();
 
-	printf("DICCIONARIO INICIALIZADO - nelems = %d \n", arbol.nelem);
+//	printf("DICCIONARIO INICIALIZADO - nelems = %d \n", arbol.nelem);
 	
 	if(cadena[0] = fgetc(archivo_entrada));
 	else printf ("ERROR - PRIMER CARACTER NO ENCOTRADO \n");
@@ -41,16 +41,16 @@ void compresor(char *nombre) {
 		/* Concatenamos */
 		strcpy(cadena_mas_caracter,cadena);
 		strcat(cadena_mas_caracter, caracter);
-
+/*
 		printf("%s + ",cadena);
 		printf("%s = ", caracter);
 		printf(" %s \n", cadena_mas_caracter);
-
+*/
 		if(-1 != esta_en_diccionario(cadena_mas_caracter)){
 			strcpy(cadena , cadena_mas_caracter);
 		}
 		else {
-			printf("ANTES DE BINARIO :$ \n");
+//			printf("ANTES DE BINARIO :$ \n");
 			agregar_binario(esta_en_diccionario(cadena), arbol.nelem, archivo_salida, &memoria, &ocupado);
 			agregar_al_diccionario(cadena_mas_caracter);
 			strcpy(cadena, caracter);
