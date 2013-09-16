@@ -19,7 +19,7 @@ void agregar_palabra2(uint16_t codigo_antiguo, uint16_t caracter, diccionario *d
 
 void agregar_palabra(char *cadena_leida, char *caracter, diccionario *dic) {
 
-	char *nueva_palabra = malloc(sizeof(char)*strlen(cadena_leida)+1);
+	char *nueva_palabra = malloc(sizeof(char)*strlen(cadena_leida)+2);
 	int pos = ++dic->posicion;
 
 	strcpy(nueva_palabra, cadena_leida);
@@ -55,7 +55,7 @@ void descompresor(char *nombre) {
 	FILE *archivo_salida = fopen("descomprimido", "w");
 
 	codigo_antiguo = leer_binario(archivo_entrada, dic->posicion+1, &memoria, &ocupado);
-//	printf("codigo antiguo = %d\n", codigo_antiguo);
+	printf("codigo antiguo = %d ...... %s\n", codigo_antiguo, traduccion_codigo(codigo_antiguo));
 	cadena_leida = traduccion_codigo(codigo_antiguo);
 	fputc(*cadena_leida,archivo_salida);
 //	printf("CADENA LEIDA = %s\n",cadena_leida);
@@ -65,7 +65,7 @@ void descompresor(char *nombre) {
 
 	while(!feof(archivo_entrada)) {
 		nuevo_codigo = leer_binario(archivo_entrada, dic->posicion+1, &memoria, &ocupado);
-//		printf("      CODIGO LEIDO: %d\n", nuevo_codigo);
+//		printf("CODIGO LEIDO  %d ...... %s\n", nuevo_codigo, traduccion_codigo(nuevo_codigo));
 		cadena = traduccion_codigo(nuevo_codigo);
 //		printf("  CADENA TRADUCIDA %s de CODIGO LEIDO: %d\n",cadena, nuevo_codigo);
 		if(cadena == NULL) {
@@ -95,4 +95,5 @@ void descompresor(char *nombre) {
 		codigo_antiguo = nuevo_codigo;
 	}
 */
+//	imprimir_diccionario(dic);
 }

@@ -94,12 +94,12 @@ diccionario *inicializar_diccionarioarr(void) {
 void imprimir_diccionario(diccionario *dic) { 
 
 	int i,j;
-	for(i = 0; i < 100; i++) {
-		printf("pos: %d cadena: %s \n", i, (char*)dic->arr[0][i]);
-		printf("pos: %d cadena: %s \n", i+100, (char*)dic->arr[1][i]);
-		printf("pos: %d cadena: %s \n",i+200, (char*)dic->arr[2][i]);
-	}
+	for(j = 0; j < 7; j++) {
+		for(i = 0; i < 100; i++) {
+			printf("fila: %d - col: %d - pos: %d cadena: %s \n", j, i, i+j*100, (char*)dic->arr[j][i]);
+		}
 
+	}
 }
 
 /*

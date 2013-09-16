@@ -15,9 +15,9 @@
 void agregar_binario(uint16_t codigo_entrada, int nelems_dic, FILE *salida, uint8_t *memoria, int *ocupado) {
 	
 	uint8_t codigo_salida;
-	int nbits = 0;
+	uint16_t nbits = 0;
 
-//	printf("COD_ENTRADA ---------> %%c = %c, %%d = %d \n", codigo_entrada, codigo_entrada);
+//	printf("COD_ENTRADA  %%c = %c, %%d = %d \n", codigo_entrada, codigo_entrada);
 
 	while((1 << ++nbits) <= nelems_dic); 
 		

@@ -10,11 +10,15 @@ void compresor(char *nombre) {
 
 	printf("DENTRO DEL COMPRESOR \n");
 	
-	char cadena[100];
+	char *cadena = calloc(100,sizeof(char));
+	cadena[99] = '\0';
 	char caracter[2];
+	caracter[0] = 0;
+	caracter[1] = '\0';
 //	caracter[2] = '\0';
 	int pos;
-	char *cadena_mas_caracter = malloc(sizeof(char)*100);
+	char *cadena_mas_caracter = calloc(100,sizeof(char));
+	cadena_mas_caracter[99] = '\0';
 	uint8_t memoria = 0;
 	int ocupado = 0;
 	FILE *archivo_entrada = fopen(nombre, "r");
@@ -51,16 +55,26 @@ void compresor(char *nombre) {
 		}
 		else {
 //			printf("ANTES DE BINARIO :$ \n");
+//			printf("CODIGO: %d ---- %s\n", esta_en_diccionario(cadena), cadena);
 			agregar_binario(esta_en_diccionario(cadena), arbol.nelem, archivo_salida, &memoria, &ocupado);
 			agregar_al_diccionario(cadena_mas_caracter);
 			strcpy(cadena, caracter);
 		}
 	}
 	agregar_binario(esta_en_diccionario(cadena), arbol.nelem,  archivo_salida, &memoria, &ocupado);
+//	printf("CODIGO: %d ---- %s\n", esta_en_diccionario(cadena), cadena);
 
 	if(memoria != 0)
-		fputc(memoria<<ocupado,archivo_salida);	
+		fputc(memoria<<(8-ocupado),archivo_salida);	
 
+//	printf("ultima memoria : %d",memoria<<ocupado);
+
+/*	printf("pos %s -- %d \n", "ho", esta_en_diccionario("ho"));
+	printf("pos %s -- %d \n", "ol", esta_en_diccionario("ol"));
+	printf("pos %s -- %d \n", "la", esta_en_diccionario("la"));
+	printf("pos %s -- %d \n", "al", esta_en_diccionario("al"));
+	printf("pos %s -- %d \n", "la", esta_en_diccionario("la"));
+*/
 	fclose(archivo_entrada);
 	fclose(archivo_salida);
 }
