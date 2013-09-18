@@ -45,38 +45,39 @@ void agregar_binario(uint16_t codigo_entrada, int nelems_dic, FILE *salida, uint
 }
 
 uint16_t leer_binario(FILE *entrada, int nelems_dic, uint16_t *memoria, int *ocupado) {
+
 	uint8_t codigo;
 	uint16_t salida = ((*memoria << (16 - *ocupado)) >> (16 - *ocupado));
 	int nbits = 0;
 	int bits_disponibles = 0;
-	
-	while((1 << ++nbits) <= nelems_dic);
+	printf("###### PRINCIPIO: salida = %d , memoria = %d , ocupado = %d\n",salida, *memoria, *ocupado);
 
 	
-//	printf("A nbits = %d\n", nbits);
+	while((1 << ++nbits) <= nelems_dic+1);
+	
+	printf("A nbits = %d\n", nbits);
 	nbits -= *ocupado;
 //	printf("D nbits = %d\n", nbits);
 
 	while(nbits != 0) {
 //		printf("entre al while de leer binario\n");
 		if(bits_disponibles != 0) {
-//			printf("1 - salida %d\n", salida);
+//			printf("1 - salida previa  %d\n", salida);
 			salida <<= 1;
 //			printf("2 - salida <<1 %d\n", salida);
 			salida |= ULTIMO_BIT(codigo);
 //			printf("3 - salida |ultimo bit %d\n",salida);
 //			printf("codigo ultimo bit = %d\n", ULTIMO_BIT(codigo));
 			codigo <<= 1;
-//			printf("codigo << = %d\n", codigo);
+//			printf("4 - codigo << = %d\n", codigo);
 			nbits--;
 			bits_disponibles--;
 //	printf("salgo del if, nbits = %d , bits_disponibles = %d, codigo = %d \n", nbits, bits_disponibles, codigo);
 		}
 		else {
 			codigo = fgetc(entrada);
-		//	printf("%d \n", fgetc(entrada));
 			bits_disponibles = 8;
-//			printf("###### CODIGO LEIDO = %d \n", codigo);
+			printf("###### CODIGO LEIDO = %d \n", codigo);
 		}
 
 	}

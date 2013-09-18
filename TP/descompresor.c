@@ -6,17 +6,6 @@
 
 #define traduccion_codigo(codigo)       (dic->arr[codigo/100][codigo%100])
 
-void agregar_palabra2(uint16_t codigo_antiguo, uint16_t caracter, diccionario *dic) {
-	char *nueva_palabra = malloc(sizeof(uint16_t)*2+1);
-	int pos = ++dic->posicion;
-	
-	nueva_palabra[0] = codigo_antiguo;
-	nueva_palabra[1] = caracter;
-	nueva_palabra[2] = '\0';
-
-	dic->arr[pos/100][pos%100] = nueva_palabra;
-}
-
 void agregar_palabra(char *cadena_leida, char *caracter, diccionario *dic) {
 
 	char *nueva_palabra = malloc(sizeof(char)*strlen(cadena_leida)+2);
@@ -41,6 +30,9 @@ void descompresor(char *nombre) {
 
 	uint16_t memoria = 0;
 	int ocupado = 0;
+
+
+
 	char *cadena_leida;// = malloc(sizeof(char)*100);
 
 	char *caracter = malloc(sizeof(char)*2);
@@ -54,8 +46,9 @@ void descompresor(char *nombre) {
 	FILE *archivo_entrada = fopen(nombre, "rb");
 	FILE *archivo_salida = fopen("descomprimido", "w");
 
+	printf("memoria = %d      ocupado = %d \n",memoria, ocupado);
 	codigo_antiguo = leer_binario(archivo_entrada, dic->posicion+1, &memoria, &ocupado);
-	printf("codigo antiguo = %d ...... %s\n", codigo_antiguo, traduccion_codigo(codigo_antiguo));
+//	printf("codigo antiguo = %d ...... %s\n", codigo_antiguo, traduccion_codigo(codigo_antiguo));
 	cadena_leida = traduccion_codigo(codigo_antiguo);
 	fputc(*cadena_leida,archivo_salida);
 //	printf("CADENA LEIDA = %s\n",cadena_leida);
@@ -64,6 +57,7 @@ void descompresor(char *nombre) {
 
 
 	while(!feof(archivo_entrada)) {
+		printf("dic->pos = %d......... \n",dic->posicion);
 		nuevo_codigo = leer_binario(archivo_entrada, dic->posicion+1, &memoria, &ocupado);
 //		printf("CODIGO LEIDO  %d ...... %s\n", nuevo_codigo, traduccion_codigo(nuevo_codigo));
 		cadena = traduccion_codigo(nuevo_codigo);
@@ -84,16 +78,5 @@ void descompresor(char *nombre) {
 		cadena_leida = cadena;		
 	}
 
-/*	if(fread(&codigo_antiguo, sizeof(uint16_t), 1, archivo_entrada)) { 
-		fwrite(&codigo_antiguo, sizeof(uint16_t), 1, archivo_salida);	
-	}
-	while(fread(&nuevo_codigo, sizeof(uint16_t), 1, archivo_entrada)) {
-		cadena = traduccion_codigo(nuevo_codigo);
-		fwrite(cadena, sizeof(char),strlen(cadena), archivo_salida);
-		*caracter = *cadena;
-		agregar_palabra(codigo_antiguo, caracter, dic);
-		codigo_antiguo = nuevo_codigo;
-	}
-*/
 //	imprimir_diccionario(dic);
 }

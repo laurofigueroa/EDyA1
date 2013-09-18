@@ -42,7 +42,7 @@ int main(void) {
 //	1S
 //	1R
 //	printf("%d \n", arbol.nelem);
-	compresor("trie.h");
+	compresor("asda.jpg");
 //	printf("pruuuuuuuuummmmmm \n");
 	descompresor("FACIL");
 	
