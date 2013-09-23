@@ -1,16 +1,14 @@
 CC = gcc
-CFLAGS = -lm
-OBJECTS = trie.o main-test.o compresor_n.o inic_dic.o descompresor.o manejo_bits.o
+CFLAGS = 
+OBJECTS = build/trie.o build/main.o build/compresor.o build/diccionario_descompresor.o build/descompresor.o build/manejo_bits.o build/Queue.o
 
-main : $(OBJECTS)
-	$(CC) -o main $(OBJECTS) $(CFLAGS)
+build/main : $(OBJECTS)
+	$(CC) -o $@ $^ $(CFLAGS)
 
-main-test.o: main-test.c trie.c compresor_n.c trie.h descompresor.c manejo_bits.c
-manejo_bits.o: manejo_bits.c
-trie.o: trie.c trie.h
-inic_dic.o: inic_dic.c trie.h
-descompresor.o: descompresor.c inic_dic.c trie.h manejo_bits.c
-compresor_n.o: compresor_n.c manejo_bits.c trie.c trie.h
+build/%.o: src/%.c
+	$(CC) -c -o $@ $^ $(CFLAGS)
 
 clean :
-	rm main *.o 
+	rm -f build/main build/*.o
+
+

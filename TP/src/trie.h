@@ -2,7 +2,7 @@
 #define __TRIE_H__
 
 #define MAX_CHAR	256
-#define SIZE		320
+#define SIZE		660
 
 typedef struct TrieNode_ {
 	unsigned char letra;

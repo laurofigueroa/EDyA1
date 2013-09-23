@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "trie.h"
-
+#include "Queue.h"
 
 TrieNodo *crear_nodo(unsigned char caracter) {
 	int i;
@@ -59,5 +59,56 @@ void agregar_al_diccionario(unsigned char*palabra) {
 
 
 void liberar_arbol(TrieRaiz *arbol) {
-	
+	int i;
+	if(arbol == NULL)
+		return;
+
+	queue *cola = queue_create();
+
+	for(i = 0; i < MAX_CHAR; i++) {
+		queue_enqueue(cola, arbol->arr_letras[i]);
+	}	
+
+	while(!queueIsEmpty(cola)) {
+		qNode *nodoCola = queue_front(cola);
+		TrieNodo *nodoTrie = nodoCola->data;
+		queue_dequeue(cola);
+		for(i = 0; i < MAX_CHAR; i++) {
+			if(nodoTrie->arr_letras[i] != NULL) 
+				queue_enqueue(cola, nodoTrie->arr_letras[i]);
+		}
+		free(nodoTrie);
+						
+	}
+	queue_destroy(cola);
+	return;
 }
+
+void print_arbol(TrieRaiz *arbol) {
+	int i;
+	if(arbol == NULL)
+		return;
+
+	queue *cola = queue_create();
+
+	for(i = 0; i < MAX_CHAR; i++) {
+		queue_enqueue(cola, arbol->arr_letras[i]);
+	}	
+
+	while(!queueIsEmpty(cola)) {
+		qNode *nodoCola = queue_front(cola);
+		TrieNodo *nodoTrie = nodoCola->data;
+		queue_dequeue(cola);
+		for(i = 0; i < MAX_CHAR; i++) {
+			if(nodoTrie->arr_letras[i] != NULL) 
+				queue_enqueue(cola, nodoTrie->arr_letras[i]);
+		}
+		printf("- %c -", nodoTrie->letra);
+		puts("");				
+	}
+	queue_destroy(cola);
+	return;
+}
+
+
+

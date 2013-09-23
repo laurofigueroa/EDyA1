@@ -54,4 +54,5 @@ void compresor(char *nombre) {
 
 	fclose(archivo_entrada);
 	fclose(archivo_salida);
+	liberar_arbol(&arbol);
 }

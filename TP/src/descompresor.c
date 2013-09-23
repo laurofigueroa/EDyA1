@@ -66,5 +66,7 @@ void descompresor(char *nombre) {
 		agregar_palabra(cadena_leida, caracter, dic);
 		cadena_leida = cadena;		
 	}
-
+	imprimir_diccionario(dic);
+	liberar_diccionario(dic);
+	imprimir_diccionario(dic);
 }
