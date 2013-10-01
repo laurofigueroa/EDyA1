@@ -25,15 +25,22 @@ void compresor(char *nombre) {
 
 	inicializar_diccionario();
 
+
+
+	int leido;
+
 	
 	if(cadena[0] = fgetc(archivo_entrada));
 	else printf ("ERROR - PRIMER CARACTER NO ENCOTRADO \n");
 
 	while(!feof(archivo_entrada)) {
 		
-		caracter[0] = fgetc(archivo_entrada);
-		if(caracter[0] == EOF)
+		
+		leido = fgetc(archivo_entrada);
+		if(leido == EOF)
 			break;
+		
+		caracter[0] = leido; 
 
 		strcpy(cadena_mas_caracter,cadena);
 		strcat(cadena_mas_caracter, caracter);

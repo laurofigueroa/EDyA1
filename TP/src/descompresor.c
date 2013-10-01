@@ -7,13 +7,15 @@
 #define traduccion_codigo(codigo)       (dic->arr[codigo/100][codigo%100])
 
 void agregar_palabra(char *cadena_leida, char *caracter, diccionario *dic) {
+	int size = (sizeof(char)*strlen(cadena_leida)+2);
+        char *nueva_palabra = malloc(size);
+	nueva_palabra[size] = '\0';
 
-	char *nueva_palabra = malloc(sizeof(char)*strlen(cadena_leida)+2);
 	int pos = ++dic->posicion;
-
+	
 	strcpy(nueva_palabra, cadena_leida);
 	strcat(nueva_palabra, caracter);
-
+	printf("NUEVA_PALABRA --> dic = %s \n",nueva_palabra);
 	dic->arr[pos/100][pos%100] = nueva_palabra;
 
 }
@@ -60,13 +62,18 @@ void descompresor(char *nombre) {
 			strcpy(cadena, temp);
 			strcat(cadena, caracter);
 		}
-	
+		printf("cadena %s \n",cadena);
+    if(feof(archivo_entrada))
+      break;
 		fwrite(cadena, sizeof(char),strlen(cadena), archivo_salida);
 		*caracter = *cadena;
 		agregar_palabra(cadena_leida, caracter, dic);
+		printf("cadena_leida = %s \n", cadena_leida);
 		cadena_leida = cadena;		
 	}
-	imprimir_diccionario(dic);
+
 	liberar_diccionario(dic);
-	imprimir_diccionario(dic);
+	fclose(archivo_entrada);
+	fclose(archivo_salida);
+	return;
 }

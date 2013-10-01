@@ -69,3 +69,4 @@ uint16_t leer_binario(FILE *entrada, int nelems_dic, uint16_t *memoria, int *ocu
 
 	return salida;
 }
+
